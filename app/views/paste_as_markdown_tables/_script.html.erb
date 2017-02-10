@@ -24,7 +24,7 @@ $(document).ready(function() {
   }
 
   function isTable(text) {
-    var lines = text.split("\r");
+    var lines = $.trim(text).split("\r");
     var length = lines.length;
     if (length < 2) {
       return false;
@@ -44,7 +44,7 @@ $(document).ready(function() {
 
   function toTable(text) {
     var tableText = "";
-    var lines = text.split("\r");
+    var lines = $.trim(text).split("\r");
     var linesLength = lines.length;
     if (linesLength == 0) {
       return text;
