@@ -1,5 +1,5 @@
 <script type="text/javascript">
-$(document).ready(function() {
+$(function() {
   $('.wiki-edit').on('paste', function (e) {
     if(navigator.userAgent.match(/MSIE/)) {
       return true;
@@ -24,7 +24,7 @@ $(document).ready(function() {
   }
 
   function isTable(text) {
-    var lines = $.trim(text).split("\r");
+    var lines = $.trim(text).split(/\r\n?/);
     var length = lines.length;
     if (length < 2) {
       return false;
@@ -44,7 +44,7 @@ $(document).ready(function() {
 
   function toTable(text) {
     var tableText = "";
-    var lines = $.trim(text).split("\r");
+    var lines = $.trim(text).split(/\r\n?/);
     var linesLength = lines.length;
     if (linesLength == 0) {
       return text;
