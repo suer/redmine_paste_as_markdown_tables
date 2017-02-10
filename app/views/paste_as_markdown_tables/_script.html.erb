@@ -56,17 +56,17 @@ $(function() {
     for (var i = 0; i < firstLineCellsLength; i++) {
       tableText += " " + firstLineCells[i] + " |";
     }
-    tableText += "\r";
+    tableText += "\n";
 
     tableText += "|";
     for (var i = 0; i < firstLineCellsLength; i++) {
       tableText += "---|";
     }
-    tableText += "\r";
+    tableText += "\n";
 
     for (var i = 1; i < linesLength; i++) {
       var cells = lines[i].split('\t');
-      tableText += "| " + cells.join(" | ") + " |\r";
+      tableText += "| " + cells.join(" | ") + " |\n";
     }
     return tableText;
   }
