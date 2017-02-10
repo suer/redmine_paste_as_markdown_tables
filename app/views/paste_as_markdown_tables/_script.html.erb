@@ -1,0 +1,74 @@
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.wiki-edit').on('paste', function (e) {
+    if(navigator.userAgent.match(/MSIE/)) {
+      return true;
+    }
+
+    var $this = $(this);
+    var text = e.originalEvent.clipboardData.getData('text');
+    if (isTable(text)) {
+      insert($this, toTable(text));
+      return false;
+    }
+    return true;
+  });
+
+  function insert(textarea, text) {
+    var $textarea = $(textarea).focus();
+    var currentText = $textarea.val();
+    var startPoint = $textarea.get(0).selectionStart;
+    var endPoint = startPoint + text.length;
+    $textarea.val(currentText.substr(0, startPoint) + text + currentText.substr(endPoint));
+    $textarea.get(0).setSelectionRange(endPoint, endPoint);
+  }
+
+  function isTable(text) {
+    var lines = text.split("\r");
+    var length = lines.length;
+    if (length < 2) {
+      return false;
+    }
+
+    var cellCount = 0;
+    for (var i = 0; i < length; i++) {
+      var cells = lines[i].split('\t');
+      if (cellCount == 0) {
+        cellCount = cells.length;
+      } else if (cellCount != cells.length) {
+        return false
+      }
+    }
+    return (cellCount > 1);
+  }
+
+  function toTable(text) {
+    var tableText = "";
+    var lines = text.split("\r");
+    var linesLength = lines.length;
+    if (linesLength == 0) {
+      return text;
+    }
+    var firstLineCells = lines[0].split('\t');
+    var firstLineCellsLength = firstLineCells.length;
+
+    tableText += "|";
+    for (var i = 0; i < firstLineCellsLength; i++) {
+      tableText += " " + firstLineCells[i] + " |";
+    }
+    tableText += "\r";
+
+    tableText += "|";
+    for (var i = 0; i < firstLineCellsLength; i++) {
+      tableText += "---|";
+    }
+    tableText += "\r";
+
+    for (var i = 1; i < linesLength; i++) {
+      var cells = lines[i].split('\t');
+      tableText += "| " + cells.join(" | ") + " |\r";
+    }
+    return tableText;
+  }
+});
+</script>
