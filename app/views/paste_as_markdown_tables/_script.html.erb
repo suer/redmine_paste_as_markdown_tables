@@ -24,8 +24,13 @@ $(function() {
   }
 
   function isTable(text) {
-    var lines = $.trim(text).split(/\r\n?/);
+    var lines = $.trim(text).split(/\r\n/);
     var length = lines.length;
+    if (length < 2) {
+      lines = $.trim(text).split(/\r|\n/);
+      length = lines.length;
+    }
+
     if (length < 2) {
       return false;
     }
@@ -44,8 +49,12 @@ $(function() {
 
   function toTable(text) {
     var tableText = "";
-    var lines = $.trim(text).split(/\r\n?/);
+    var lines = $.trim(text).split(/\r\n/);
     var linesLength = lines.length;
+    if (linesLength < 2) {
+      lines = $.trim(text).split(/\r|\n/);
+      linesLength = lines.length;
+    }
     if (linesLength == 0) {
       return text;
     }
