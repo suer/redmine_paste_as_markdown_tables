@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $(function() {
-  $('.wiki-edit').on('paste', function (e) {
+  $(document).on('paste', '.wiki-edit', function (e) {
     if(navigator.userAgent.match(/MSIE/)) {
       return true;
     }
